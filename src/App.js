@@ -1,16 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { connectToBluetoothDevice, startNotifications, disconnectFromBluetoothDevice } from './utils/bluetooth'
 import { parseCube } from './utils/cubeParser'
 function App () {
   const [cubeState, setCubeState] = useState('bbbbbbbbboooooooooyyyyyyyyygggggggggrrrrrrrrrwwwwwwwww')
   const [device, setDevice] = useState(null)
   const faceColorMap = ['g', 'y', 'r', 'w', 'o', 'b']
-
-  // useEffect(
-  //   // device.addEventListener('gattserverdisconnected', () => {
-  //   //   disconnectFromBluetoothDevice(device)
-  //   }, [])
-  // )
 
   const onClick = async () => {
     try {
