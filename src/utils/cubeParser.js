@@ -359,6 +359,89 @@ export const parseCube = bytes => {
   return Array.from(paperTypeCube).slice(1)
 }
 
+export const parseSolution = colorString => {
+  const colorArray = colorString.split('').map(c => {
+    if (c === 'b') {
+      return 'b'
+    }
+    if (c === 'o') {
+      return 'l'
+    }
+    if (c === 'y') {
+      return 'd'
+    }
+    if (c === 'g') {
+      return 'f'
+    }
+    if (c === 'r') {
+      return 'r'
+    }
+    if (c === 'w') {
+      return 'u'
+    }
+  })
+  // return colorArray.join('')
+  return colorArray[35] +
+  colorArray[34] +
+  colorArray[33] +
+  colorArray[32] +
+  colorArray[31] +
+  colorArray[30] +
+  colorArray[29] +
+  colorArray[28] +
+  colorArray[27] +
+
+  colorArray[42] +
+  colorArray[39] +
+  colorArray[36] +
+  colorArray[43] +
+  colorArray[40] +
+  colorArray[37] +
+  colorArray[44] +
+  colorArray[41] +
+  colorArray[38] +
+
+  colorArray[45] +
+  colorArray[46] +
+  colorArray[47] +
+  colorArray[48] +
+  colorArray[49] +
+  colorArray[50] +
+  colorArray[51] +
+  colorArray[52] +
+  colorArray[53] +
+
+  colorArray[26] +
+  colorArray[25] +
+  colorArray[24] +
+  colorArray[23] +
+  colorArray[22] +
+  colorArray[21] +
+  colorArray[20] +
+  colorArray[19] +
+  colorArray[18] +
+
+  colorArray[11] +
+  colorArray[14] +
+  colorArray[17] +
+  colorArray[10] +
+  colorArray[13] +
+  colorArray[16] +
+  colorArray[9] +
+  colorArray[12] +
+  colorArray[15] +
+
+  colorArray[0] +
+  colorArray[1] +
+  colorArray[2] +
+  colorArray[3] +
+  colorArray[4] +
+  colorArray[5] +
+  colorArray[6] +
+  colorArray[7] +
+  colorArray[8]
+}
+
 export const getColors = colorString => {
   const colors = colorString.split('').map(c => {
     if (c === 'b') {
@@ -436,7 +519,6 @@ export const getColors = colorString => {
     212: colors[52],
     252: colors[53]
   }
-  console.log(parsedColors)
 
   return parsedColors
 }

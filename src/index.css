@@ -11,7 +11,6 @@ body {
 
 button {
   z-index: 2;
-  touch-action: inherit;
 }
 #root,.app {
     width:100%;

@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
 import { connectToBluetoothDevice, startNotifications, disconnectFromBluetoothDevice } from './utils/bluetooth'
-import { parseCube, getColors } from './utils/cubeParser'
+import { parseCube, getColors, parseSolution } from './utils/cubeParser'
+import solver from 'rubiks-cube-solver'
 import './App.css'
 import CubeContainer from './components/CubeContainer'
 
 function App () {
   const [cubeState, setCubeState] = useState('bbbbbbbbboooooooooyyyyyyyyygggggggggrrrrrrrrrwwwwwwwww')
   const [device, setDevice] = useState(null)
+  const [solution, setSolution] = useState('')
   const faceColorMap = ['g', 'y', 'r', 'w', 'o', 'b']
 
   const onClick = async () => {
@@ -14,13 +16,13 @@ function App () {
       const { server, device } = await connectToBluetoothDevice()
       setDevice(device)
       const characteristic = await startNotifications(server)
-      console.log(characteristic)
       characteristic.addEventListener('characteristicvaluechanged', event => {
         const { value } = event.target // 20 bytes sent by the cube
         const cubeState = parseCube(value) // We parse it to an array of 54 colors (1...6)
           .map(faceletColor => faceColorMap[faceletColor - 1])
           .join('')
         setCubeState(cubeState)
+        setSolution(solver(parseSolution(cubeState)).replace(/prime/g, '\''))
       })
       device.addEventListener('gattserverdisconnected', () => {
         disconnectFromBluetoothDevice(device)
@@ -40,6 +42,11 @@ function App () {
         >
           connect
         </button>
+      </div>
+      <div>
+        {solution}
+        {console.log(solver(parseSolution(cubeState, { options: { partitioned: true } })))}
+
       </div>
     </div>
   )
