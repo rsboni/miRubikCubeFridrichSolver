@@ -33,12 +33,8 @@ function App () {
   return (
     <div className='App'>
       <CubeContainer cubeState={getColors(cubeState)} />
-      {/* <img
-        alt='Rubik cube'
-        src={`http://cube.crider.co.uk/visualcube.php?fmt=svg&r=x-90y-120x-20&size=300&fc=${cubeState}`}
-      /> */}
       <div>
-        <button 
+        <button
           className='connect'
           onClick={() => onClick()}
         >

@@ -105,4 +105,3 @@ export const getTouchPositions = eve => {
     return { clientX: eve.clientX, clientY: eve.clientY }
   }
 }
-

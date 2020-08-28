@@ -4,8 +4,7 @@ import {
   calcPosition,
   calculateResultantAngle,
   getCubePositionDiffrence,
-  getTouchPositions,
-  
+  getTouchPositions
 } from '../utils/functions'
 
 class CubeContainer extends Component {

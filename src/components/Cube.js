@@ -79,13 +79,14 @@ class Cube extends Component {
         style={this.cubePosition()}
       >
         {faceArray.map((face, index) => {
+          const { cubeId, cubeState } = this.props
           return (
             <div
               key={index}
               onMouseDown={evt => this.onTouchStart(evt, face)}
               onTouchStart={evt => this.onTouchStart(evt, face)}
-              className={`face ${face} f${this.props.cubeId}${index}`}
-              style={{ backgroundColor: this.props.cubeState[`${this.props.cubeId}${index}`] ? this.props.cubeState[`${this.props.cubeId}${index}`] : '#000000' }}
+              className={`face ${face} f${cubeId}${index}`}
+              style={{ backgroundColor: cubeState[`${cubeId}${index}`] ? cubeState[`${cubeId}${index}`] : '#000000' }}
             />
           )
         })}
