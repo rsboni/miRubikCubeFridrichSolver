@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import { connectToBluetoothDevice, startNotifications, disconnectFromBluetoothDevice } from './utils/bluetooth'
-import { parseCube } from './utils/cubeParser'
+import { parseCube, getColors } from './utils/cubeParser'
+import './App.css'
+import CubeContainer from './components/CubeContainer'
+
 function App () {
   const [cubeState, setCubeState] = useState('bbbbbbbbboooooooooyyyyyyyyygggggggggrrrrrrrrrwwwwwwwww')
   const [device, setDevice] = useState(null)
@@ -29,10 +32,11 @@ function App () {
 
   return (
     <div className='App'>
-      <img
+      <CubeContainer cubeState={getColors(cubeState)} />
+      {/* <img
         alt='Rubik cube'
         src={`http://cube.crider.co.uk/visualcube.php?fmt=svg&r=x-90y-120x-20&size=300&fc=${cubeState}`}
-      />
+      /> */}
       <div>
         <button
           onClick={() => onClick()}

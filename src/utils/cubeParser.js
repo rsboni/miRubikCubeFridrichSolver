@@ -358,3 +358,85 @@ export const parseCube = bytes => {
   const paperTypeCube = converseToPaperType(mixerDataDecoded)
   return Array.from(paperTypeCube).slice(1)
 }
+
+export const getColors = colorString => {
+  const colors = colorString.split('').map(c => {
+    if (c === 'b') {
+      return '#4badda'
+    }
+    if (c === 'o') {
+      return '#ca766b'
+    }
+    if (c === 'y') {
+      return '#ccc59b'
+    }
+    if (c === 'g') {
+      return '#76ba85'
+    }
+    if (c === 'r') {
+      return '#b64855'
+    }
+    if (c === 'w') {
+      return '#e7ecef'
+    }
+  })
+  const parsedColors = {
+    161: colors[0],
+    121: colors[1],
+    141: colors[2],
+    111: colors[3],
+    91: colors[4],
+    101: colors[5],
+    171: colors[6],
+    131: colors[7],
+    151: colors[8],
+    154: colors[9],
+    104: colors[10],
+    144: colors[11],
+    64: colors[12],
+    14: colors[13],
+    54: colors[14],
+    244: colors[15],
+    194: colors[16],
+    234: colors[17],
+    173: colors[18],
+    133: colors[19],
+    153: colors[20],
+    83: colors[21],
+    43: colors[22],
+    63: colors[23],
+    263: colors[24],
+    223: colors[25],
+    243: colors[26],
+    260: colors[27],
+    220: colors[28],
+    240: colors[29],
+    200: colors[30],
+    180: colors[31],
+    190: colors[32],
+    250: colors[33],
+    210: colors[34],
+    230: colors[35],
+    165: colors[36],
+    115: colors[37],
+    175: colors[38],
+    75: colors[39],
+    25: colors[40],
+    85: colors[41],
+    255: colors[42],
+    205: colors[43],
+    265: colors[44],
+    142: colors[45],
+    122: colors[46],
+    162: colors[47],
+    52: colors[48],
+    32: colors[49],
+    72: colors[50],
+    232: colors[51],
+    212: colors[52],
+    252: colors[53]
+  }
+  console.log(parsedColors)
+
+  return parsedColors
+}

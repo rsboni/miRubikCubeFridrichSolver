@@ -1,13 +1,105 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    touch-action: none;
+    background: radial-gradient(circle, white, rgba(black, 0.5));
+    background-blend-mode: overlay;
+    background-color: #000000;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+#root,.app{
+    width:100%;
+    height:100%;
+    position: absolute;
+    overflow: hidden
+}
+
+.cube-container {
+    transform-style: preserve-3d;
+    perspective: 400px;
+    width:100%;
+    height:70%;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.cube {
+    width: 30px;
+    height: 30px;
+    transform-style: preserve-3d;
+    position: absolute;
+    left: calc( 50% - 15px );
+    top:calc( 50% - 15px );
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.cube .face {
+    border: 2px solid #333;
+    border-radius: 5px;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    box-sizing: border-box;
+    background:rgb(56, 56, 56);
+}
+
+.f32,.f91,.f14,.f180,.f25,.f43 {
+  border-radius: 37% !important;
+}
+
+.f205,.f190,.f104,.f52,.f101,.f63 {
+  border-bottom-right-radius: 37% !important;
+  border-top-right-radius: 37% !important;
+}
+.f72,.f115,.f111,.f194,.f200,.f83 {
+  border-bottom-left-radius: 37% !important;
+  border-top-left-radius: 37% !important;
+}
+
+.f122,.f64,.f131,.f85,.f220,.f223 {
+  border-top-right-radius: 37% !important;
+  border-top-left-radius: 37% !important;
+}
+
+.f121,.f212,.f210,.f54,.f75,.f133 {
+  border-bottom-right-radius: 37% !important;
+  border-bottom-left-radius: 37% !important;
+}
+
+.cube .face.front {
+    transform: translateZ(15px) rotate(0deg)
+}
+
+.cube .face.back {
+    transform: translateZ(-15px) rotate(0deg)
+}
+
+.cube .face.top {
+    transform: rotateX(-90deg) translateY(-15px);
+    transform-origin: top center;
+}
+
+.cube .face.bottom {
+    transform: rotateX(90deg) translateY(15px);
+    transform-origin: bottom center;
+}
+
+.cube .face.left {
+    transform: rotateY(270deg) translateX(-15px);
+    transform-origin: center left;
+}
+
+.cube .face.right {
+    transform: rotateY(-270deg) translateX(15px);
+    transform-origin: center right;
 }
