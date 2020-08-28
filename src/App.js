@@ -1,14 +1,20 @@
 import React, { useState } from 'react'
-import { connectToBluetoothDevice, startNotifications, disconnectFromBluetoothDevice } from './utils/bluetooth'
+import {
+  connectToBluetoothDevice,
+  startNotifications,
+  disconnectFromBluetoothDevice
+} from './utils/bluetooth'
 import { parseCube, getColors, parseSolution } from './utils/cubeParser'
 import solver from 'rubiks-cube-solver'
 import './App.css'
 import CubeContainer from './components/CubeContainer'
 
 function App () {
-  const [cubeState, setCubeState] = useState('bbbbbbbbboooooooooyyyyyyyyygggggggggrrrrrrrrrwwwwwwwww')
+  const [cubeState, setCubeState] = useState(
+    'bbbbbbbbboooooooooyyyyyyyyygggggggggrrrrrrrrrwwwwwwwww'
+  )
   const [device, setDevice] = useState(null)
-  const [solution, setSolution] = useState('')
+  const [solution, setSolution] = useState(undefined)
   const faceColorMap = ['g', 'y', 'r', 'w', 'o', 'b']
 
   const onClick = async () => {
@@ -22,7 +28,7 @@ function App () {
           .map(faceletColor => faceColorMap[faceletColor - 1])
           .join('')
         setCubeState(cubeState)
-        setSolution(solver(parseSolution(cubeState)).replace(/prime/g, '\''))
+        setSolution(solver(parseSolution(cubeState), { partitioned: true }))
       })
       device.addEventListener('gattserverdisconnected', () => {
         disconnectFromBluetoothDevice(device)
@@ -35,19 +41,29 @@ function App () {
   return (
     <div className='App'>
       <CubeContainer cubeState={getColors(cubeState)} />
-      <div>
-        <button
-          className='connect'
-          onClick={() => onClick()}
-        >
-          connect
-        </button>
-      </div>
-      <div>
-        {solution}
-        {console.log(solver(parseSolution(cubeState, { options: { partitioned: true } })))}
-
-      </div>
+      {device == null ? (
+        <div>
+          <button className='connect' onClick={() => onClick()}>
+            connect
+          </button>
+        </div>
+      ) : (
+        ''
+      )}
+      {solution ? (
+        <div>
+          <h2>Cross</h2>
+          <p>{solution.cross.toString().replace(/prime/g, "'")}</p>
+          <h2>F2L</h2>
+          <p>{solution.f2l.toString().replace(/prime/g, "'")}</p>
+          <h2>OLL</h2>
+          <p>{solution.oll.toString().replace(/prime/g, "'")}</p>
+          <h2>PLL</h2>
+          <p>{solution.pll.toString().replace(/prime/g, "'")}</p>
+        </div>
+      ) : (
+        ''
+      )}
     </div>
   )
 }
