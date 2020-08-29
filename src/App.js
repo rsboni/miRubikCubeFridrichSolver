@@ -52,14 +52,14 @@ function App () {
       )}
       {solution ? (
         <div>
-          <h2>Cross</h2>
-          <p>{solution.cross.toString().replace(/prime/g, "'")}</p>
-          <h2>F2L</h2>
-          <p>{solution.f2l.toString().replace(/prime/g, "'")}</p>
-          <h2>OLL</h2>
-          <p>{solution.oll.toString().replace(/prime/g, "'")}</p>
-          <h2>PLL</h2>
-          <p>{solution.pll.toString().replace(/prime/g, "'")}</p>
+          <h5>Cross</h5>
+          <p>{solution.cross.toString().replace(/prime/g, "'").replace(/,/g, ' ')}</p>
+          <h5>F2L</h5>
+          <p>{solution.f2l.toString().replace(/prime/g, "'").replace(/,/g, ' ')}</p>
+          <h5>OLL</h5>
+          <p>{solution.oll.toString().replace(/prime/g, "'").replace(/,/g, ' ')}</p>
+          <h5>PLL</h5>
+          <p>{solution.pll.toString().replace(/prime/g, "'").replace(/,/g, ' ')}</p>
         </div>
       ) : (
         ''

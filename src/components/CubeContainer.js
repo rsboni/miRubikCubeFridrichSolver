@@ -56,14 +56,24 @@ class CubeContainer extends Component {
     this.faceRotationInit = this.faceRotationInit.bind(this)
   }
 
-  componentDidMount () {
+  async componentDidMount () {
     // adding listener for mouseup
     this.elem.addEventListener('mouseup', this.handleOnTouchEnd)
     this.elem.addEventListener('touchend', this.handleOnTouchEnd)
     this.elem.addEventListener('touchcancel', this.handleOnTouchEnd)
 
     // Initial position
-    this.rotateCubeSpace(160, 0)
+    await this.rotateCubeSpace(0, 45)
+    this.rotateCubeSpace(-45, 0)
+
+    this.rotateCube(
+      -30,
+      -0,
+      this.state.positions[3],
+      'front',
+      this.getOrientation(21)
+    )
+    this.reArrangeCubes()
   }
 
   componentWillUnmount () {
