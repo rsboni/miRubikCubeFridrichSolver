@@ -65,15 +65,6 @@ class CubeContainer extends Component {
     // Initial position
     await this.rotateCubeSpace(0, 45)
     this.rotateCubeSpace(-45, 0)
-
-    this.rotateCube(
-      -30,
-      -0,
-      this.state.positions[3],
-      'front',
-      this.getOrientation(21)
-    )
-    this.reArrangeCubes()
   }
 
   componentWillUnmount () {
