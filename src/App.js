@@ -43,7 +43,7 @@ function App () {
       <CubeContainer cubeState={getColors(cubeState)} />
       {device == null ? (
         <div>
-          <button className='connect' onClick={() => onClick()}>
+          <button className='button' onClick={() => onClick()}>
             connect
           </button>
         </div>
