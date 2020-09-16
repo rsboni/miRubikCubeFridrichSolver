@@ -13,7 +13,7 @@ function App () {
   const [cubeState, setCubeState] = useState(
     'bbbbbbbbboooooooooyyyyyyyyygggggggggrrrrrrrrrwwwwwwwww'
   )
-  const [device, setDevice] = useState(null)
+  const [device, setDevice] = useState(undefined)
   const [solution, setSolution] = useState(undefined)
   const faceColorMap = ['g', 'y', 'r', 'w', 'o', 'b']
 
@@ -28,7 +28,6 @@ function App () {
           .map(faceletColor => faceColorMap[faceletColor - 1])
           .join('')
         setCubeState(cubeState)
-        setSolution(solver(parseSolution(cubeState), { partitioned: true }))
       })
       device.addEventListener('gattserverdisconnected', () => {
         disconnectFromBluetoothDevice(device)
@@ -38,29 +37,88 @@ function App () {
     }
   }
 
+  const OnSolution = () => {
+    const newSolution = solver(parseSolution(cubeState), { partitioned: true })
+    newSolution.cross = newSolution.cross
+      .toString()
+      .replace(/prime/g, "'")
+      .replace(/,/g, ' ')
+    newSolution.f2l = newSolution.f2l
+      .toString()
+      .replace(/prime/g, "'")
+      .replace(/,/g, ' ')
+    newSolution.oll = newSolution.oll
+      .toString()
+      .replace(/prime/g, "'")
+      .replace(/,/g, ' ')
+    newSolution.pll = newSolution.pll
+      .toString()
+      .replace(/prime/g, "'")
+      .replace(/,/g, ' ')
+    setSolution(newSolution)
+  }
+
   return (
     <div className='App'>
       <CubeContainer cubeState={getColors(cubeState)} />
-      {device == null ? (
+      {!device ? (
         <div>
           <button className='button' onClick={() => onClick()}>
-            connect
+            CONNECT
           </button>
         </div>
       ) : (
         ''
       )}
-      {solution ? (
+      {solution === 'SOLVED' ? (
+        <h1>SOLVED!!</h1>
+      ) : solution ? (
         <div>
-          <h5>Cross</h5>
-          <p>{solution.cross.toString().replace(/prime/g, "'").replace(/,/g, ' ')}</p>
-          <h5>F2L</h5>
-          <p>{solution.f2l.toString().replace(/prime/g, "'").replace(/,/g, ' ')}</p>
-          <h5>OLL</h5>
-          <p>{solution.oll.toString().replace(/prime/g, "'").replace(/,/g, ' ')}</p>
-          <h5>PLL</h5>
-          <p>{solution.pll.toString().replace(/prime/g, "'").replace(/,/g, ' ')}</p>
+          {solution.cross.length > 3 ? (
+            <div>
+              <h5>Cross</h5>
+              <p>{solution.cross}</p>
+            </div>
+          ) : (
+            ''
+          )}
+          {solution.f2l.length > 3 ? (
+            <div>
+              <h5>F2L</h5>
+              <p>{solution.f2l}</p>
+            </div>
+          ) : (
+            ''
+          )}
+          {solution.oll.length ? (
+            <div>
+              <h5>OLL</h5>
+              <p>{solution.oll}</p>
+            </div>
+          ) : (
+            ''
+          )}
+          {solution.pll.length ? (
+            <div>
+              <h5>PLL</h5>
+              <p>{solution.pll}</p>
+            </div>
+          ) : (
+            ''
+          )}
+          <div>
+            <button className='button' onClick={() => OnSolution()}>
+              new solution
+            </button>
+          </div>
         </div>
+      ) : (
+        ''
+      )}
+      {!solution && device ? (
+        <button className='button' onClick={() => OnSolution()}>
+          Solution
+        </button>
       ) : (
         ''
       )}
