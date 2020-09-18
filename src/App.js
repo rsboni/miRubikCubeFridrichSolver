@@ -1,4 +1,12 @@
 import React, { useState } from 'react'
+import { makeStyles } from '@material-ui/core/styles'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
+import Button from '@material-ui/core/Button'
+import IconButton from '@material-ui/core/IconButton'
+import MenuIcon from '@material-ui/icons/Menu'
+import Container from '@material-ui/core/Container'
 import {
   connectToBluetoothDevice,
   startNotifications,
@@ -8,8 +16,24 @@ import { parseCube, getColors, parseSolution } from './utils/cubeParser'
 import solver from 'rubiks-cube-solver'
 import './App.css'
 import CubeContainer from './components/CubeContainer'
+import { Paper } from '@material-ui/core'
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1,
+    width: '100%'
+  },
+  menuButton: {
+    marginRight: theme.spacing(2)
+  },
+  title: {
+    flexGrow: 1
+  }
+}))
 
 function App () {
+  const classes = useStyles()
+
   const [cubeState, setCubeState] = useState(
     'bbbbbbbbboooooooooyyyyyyyyygggggggggrrrrrrrrrwwwwwwwww'
   )
@@ -36,92 +60,110 @@ function App () {
       console.log(err)
     }
   }
-
+  const parsedNewSolution = solution => {
+    Object.entries(solution).forEach(([key, val]) => {
+      const newMethod = val
+        .toString()
+        .replace(/prime/g, "'")
+        .replace(/,/g, ' ')
+      console.log('key:', key)
+      console.log('value:', val)
+      console.log('newMethod:', newMethod)
+      solution[key] = newMethod.length > 3 ? newMethod : undefined
+    })
+    return solution
+  }
   const OnSolution = () => {
     const newSolution = solver(parseSolution(cubeState), { partitioned: true })
-    newSolution.cross = newSolution.cross
-      .toString()
-      .replace(/prime/g, "'")
-      .replace(/,/g, ' ')
-    newSolution.f2l = newSolution.f2l
-      .toString()
-      .replace(/prime/g, "'")
-      .replace(/,/g, ' ')
-    newSolution.oll = newSolution.oll
-      .toString()
-      .replace(/prime/g, "'")
-      .replace(/,/g, ' ')
-    newSolution.pll = newSolution.pll
-      .toString()
-      .replace(/prime/g, "'")
-      .replace(/,/g, ' ')
-    setSolution(newSolution)
+    console.log(newSolution)
+    const parsedSolution = parsedNewSolution(newSolution)
+    console.log(parsedSolution)
+    setSolution(parsedSolution)
   }
 
   return (
     <div className='App'>
-      <CubeContainer cubeState={getColors(cubeState)} />
-      {!device ? (
-        <div>
-          <button className='button' onClick={() => onClick()}>
-            CONNECT
-          </button>
-        </div>
-      ) : (
-        ''
-      )}
-      {solution === 'SOLVED' ? (
-        <h1>SOLVED!!</h1>
-      ) : solution ? (
-        <div>
-          {solution.cross.length > 3 ? (
-            <div>
-              <h5>Cross</h5>
-              <p>{solution.cross}</p>
-            </div>
-          ) : (
-            ''
-          )}
-          {solution.f2l.length > 3 ? (
-            <div>
-              <h5>F2L</h5>
-              <p>{solution.f2l}</p>
-            </div>
-          ) : (
-            ''
-          )}
-          {solution.oll.length ? (
-            <div>
-              <h5>OLL</h5>
-              <p>{solution.oll}</p>
-            </div>
-          ) : (
-            ''
-          )}
-          {solution.pll.length ? (
-            <div>
-              <h5>PLL</h5>
-              <p>{solution.pll}</p>
-            </div>
-          ) : (
-            ''
-          )}
+      {/* <div className={classes.root}>
+        <AppBar position='static'>
+          <Toolbar>
+            <IconButton
+              edge='start'
+              className={classes.menuButton}
+              color='inherit'
+              aria-label='menu'
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant='h6' className={classes.title}>
+              Rubik Cube
+            </Typography>
+          </Toolbar>
+        </AppBar>
+      </div> */}
+      <CubeContainer
+        cubeState={getColors(cubeState)}
+        className='CubeContainer'
+      />
+      <div>
+        {!device ? (
           <div>
-            <button className='button' onClick={() => OnSolution()}>
-              new solution
-            </button>
+            <Button
+              variant='contained'
+              size='medium'
+              className='button'
+              color='primary'
+              onClick={() => onClick()}
+              fullWidth
+            >
+              CONNECT
+            </Button>
           </div>
-        </div>
-      ) : (
-        ''
-      )}
-      {!solution && device ? (
-        <button className='button' onClick={() => OnSolution()}>
-          Solution
-        </button>
-      ) : (
-        ''
-      )}
+        ) : (
+          ''
+        )}
+        { solution ? (
+          <div>
+            {solution.cross ? (
+              <div>
+                <h5>Cross</h5>
+                <Typography>{solution.cross}</Typography>
+              </div>
+            ) : solution.f2l ? (
+              <div>
+                <h5>F2L</h5>
+                <Typography>{solution.f2l}</Typography>
+              </div>
+            ) : solution.oll ? (
+              <div>
+                <h5>OLL</h5>
+                <Typography>{solution.oll}</Typography>
+              </div>
+            ) : solution.pll ? (
+              <div>
+                <h5>PLL</h5>
+                <Typography>{solution.pll}</Typography>
+              </div>
+            ) : (
+              'Solved!'
+            )}
+          </div>
+        ) : (
+          ''
+        )}
+        { device ? (
+          <Button
+            variant='contained'
+            fullWidth
+            className='button'
+            color='primary'
+            onClick={() => OnSolution()}
+          >
+            {solution ? 'Solution' : 'New Solution'}
+          </Button>
+        ) : (
+          ''
+        )}
+      </div>
     </div>
   )
 }
