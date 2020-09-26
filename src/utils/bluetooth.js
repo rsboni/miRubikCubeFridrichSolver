@@ -6,12 +6,21 @@ export const isWebBluetoothSupported = 'bluetooth' in navigator
 export const connectToBluetoothDevice = async () => {
   try {
     const device = await navigator.bluetooth.requestDevice({
-      acceptAllDevices: true,
+      // acceptAllDevices: true,
+      filters: [
+        { services: [0xfe95] },
+        // { services: [SERVICE_UUID] },
+        // { namePrefix: ['Mi'] }
+        // services: ['0000fe95-0000-1000-8000-00805f9b34fb']
+      ],
       optionalServices: [SERVICE_UUID]
     })
+    console.log('device:', device)
     const server = await device.gatt.connect()
     window.mdevice = device
     window.mserver = server
+    console.log('server:', server)
+
     return { device, server }
   } catch (err) {
     return err
