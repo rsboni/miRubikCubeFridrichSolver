@@ -15,11 +15,9 @@ export const connectToBluetoothDevice = async () => {
       // ],
       optionalServices: [SERVICE_UUID]
     })
-    console.log('device:', device)
     const server = await device.gatt.connect()
     window.mdevice = device
     window.mserver = server
-    console.log('server:', server)
 
     return { device, server }
   } catch (err) {
