@@ -1,11 +1,18 @@
-"use strict";
-
 Object.defineProperty(exports, "__esModule", {
-  value: true
+  value: true,
 });
 exports.getColors = exports.parseSolution = exports.parseCube = void 0;
 
-var converseAngleSetSingleXfirst = function converseAngleSetSingleXfirst(cube, angleFace, p1, p2, p3, c1, c2, c3) {
+var converseAngleSetSingleXfirst = function converseAngleSetSingleXfirst(
+  cube,
+  angleFace,
+  p1,
+  p2,
+  p3,
+  c1,
+  c2,
+  c3
+) {
   var result = 0;
 
   if (angleFace === 1) {
@@ -27,7 +34,16 @@ var converseAngleSetSingleXfirst = function converseAngleSetSingleXfirst(cube, a
   return result;
 };
 
-var converseAngleSetSingleYfirst = function converseAngleSetSingleYfirst(cube, angleFace, p1, p2, p3, c1, c2, c3) {
+var converseAngleSetSingleYfirst = function converseAngleSetSingleYfirst(
+  cube,
+  angleFace,
+  p1,
+  p2,
+  p3,
+  c1,
+  c2,
+  c3
+) {
   var result = 0;
 
   if (angleFace === 2) {
@@ -49,7 +65,14 @@ var converseAngleSetSingleYfirst = function converseAngleSetSingleYfirst(cube, a
   return result;
 };
 
-var converseAngleSetXfirst = function converseAngleSetXfirst(cube, angle, angleFace, f1, f2, f3) {
+var converseAngleSetXfirst = function converseAngleSetXfirst(
+  cube,
+  angle,
+  angleFace,
+  f1,
+  f2,
+  f3
+) {
   var num = 0;
 
   if (angle === 1) {
@@ -75,7 +98,14 @@ var converseAngleSetXfirst = function converseAngleSetXfirst(cube, angle, angleF
   return num;
 };
 
-var converseAngleSetYfirst = function converseAngleSetYfirst(cube, angle, angleFace, f1, f2, f3) {
+var converseAngleSetYfirst = function converseAngleSetYfirst(
+  cube,
+  angle,
+  angleFace,
+  f1,
+  f2,
+  f3
+) {
   var num = 0;
 
   if (angle === 1) {
@@ -101,7 +131,14 @@ var converseAngleSetYfirst = function converseAngleSetYfirst(cube, angle, angleF
   return num;
 };
 
-var converseLineSetSingle = function converseLineSetSingle(cube, lineFace, p1, p2, c1, c2) {
+var converseLineSetSingle = function converseLineSetSingle(
+  cube,
+  lineFace,
+  p1,
+  p2,
+  c1,
+  c2
+) {
   var result = 0;
 
   if (lineFace === 1) {
@@ -151,7 +188,13 @@ var converseLineSet = function converseLineSet(cube, line, lineFace, p1, p2) {
   return num;
 };
 
-var converseChangeFaceAgain = function converseChangeFaceAgain(cube, a1, a2, a3, a4) {
+var converseChangeFaceAgain = function converseChangeFaceAgain(
+  cube,
+  a1,
+  a2,
+  a3,
+  a4
+) {
   var num = cube[a4];
   cube[a4] = cube[a3];
   cube[a3] = cube[a2];
@@ -331,7 +374,44 @@ var converseToPaperType = function converseToPaperType(cubeOutputDataDebug) {
 
 var cubeDataMixDecode = function cubeDataMixDecode(mixData) {
   var array = new Uint8Array(20);
-  var array2 = [80, 175, 152, 32, 170, 119, 19, 137, 218, 230, 63, 95, 46, 130, 106, 175, 163, 243, 20, 7, 167, 21, 168, 232, 143, 175, 42, 125, 126, 57, 254, 87, 217, 91, 85, 215];
+  var array2 = [
+    80,
+    175,
+    152,
+    32,
+    170,
+    119,
+    19,
+    137,
+    218,
+    230,
+    63,
+    95,
+    46,
+    130,
+    106,
+    175,
+    163,
+    243,
+    20,
+    7,
+    167,
+    21,
+    168,
+    232,
+    143,
+    175,
+    42,
+    125,
+    126,
+    57,
+    254,
+    87,
+    217,
+    91,
+    85,
+    215,
+  ];
 
   if (mixData.byteLength !== 20) {
     return mixData;
@@ -368,61 +448,116 @@ var parseCube = function parseCube(bytes) {
 exports.parseCube = parseCube;
 
 var parseSolution = function parseSolution(colorString) {
-  var colorArray = colorString.split('').map(function (c) {
-    if (c === 'b') {
-      return 'b';
+  var colorArray = colorString.split("").map(function (c) {
+    if (c === "b") {
+      return "b";
     }
 
-    if (c === 'o') {
-      return 'l';
+    if (c === "o") {
+      return "l";
     }
 
-    if (c === 'y') {
-      return 'd';
+    if (c === "y") {
+      return "d";
     }
 
-    if (c === 'g') {
-      return 'f';
+    if (c === "g") {
+      return "f";
     }
 
-    if (c === 'r') {
-      return 'r';
+    if (c === "r") {
+      return "r";
     }
 
-    if (c === 'w') {
-      return 'u';
+    if (c === "w") {
+      return "u";
     }
   }); // return colorArray.join('')
 
-  return colorArray[35] + colorArray[34] + colorArray[33] + colorArray[32] + colorArray[31] + colorArray[30] + colorArray[29] + colorArray[28] + colorArray[27] + colorArray[42] + colorArray[39] + colorArray[36] + colorArray[43] + colorArray[40] + colorArray[37] + colorArray[44] + colorArray[41] + colorArray[38] + colorArray[45] + colorArray[46] + colorArray[47] + colorArray[48] + colorArray[49] + colorArray[50] + colorArray[51] + colorArray[52] + colorArray[53] + colorArray[26] + colorArray[25] + colorArray[24] + colorArray[23] + colorArray[22] + colorArray[21] + colorArray[20] + colorArray[19] + colorArray[18] + colorArray[11] + colorArray[14] + colorArray[17] + colorArray[10] + colorArray[13] + colorArray[16] + colorArray[9] + colorArray[12] + colorArray[15] + colorArray[0] + colorArray[1] + colorArray[2] + colorArray[3] + colorArray[4] + colorArray[5] + colorArray[6] + colorArray[7] + colorArray[8];
+  return (
+    colorArray[35] +
+    colorArray[34] +
+    colorArray[33] +
+    colorArray[32] +
+    colorArray[31] +
+    colorArray[30] +
+    colorArray[29] +
+    colorArray[28] +
+    colorArray[27] +
+    colorArray[42] +
+    colorArray[39] +
+    colorArray[36] +
+    colorArray[43] +
+    colorArray[40] +
+    colorArray[37] +
+    colorArray[44] +
+    colorArray[41] +
+    colorArray[38] +
+    colorArray[45] +
+    colorArray[46] +
+    colorArray[47] +
+    colorArray[48] +
+    colorArray[49] +
+    colorArray[50] +
+    colorArray[51] +
+    colorArray[52] +
+    colorArray[53] +
+    colorArray[26] +
+    colorArray[25] +
+    colorArray[24] +
+    colorArray[23] +
+    colorArray[22] +
+    colorArray[21] +
+    colorArray[20] +
+    colorArray[19] +
+    colorArray[18] +
+    colorArray[11] +
+    colorArray[14] +
+    colorArray[17] +
+    colorArray[10] +
+    colorArray[13] +
+    colorArray[16] +
+    colorArray[9] +
+    colorArray[12] +
+    colorArray[15] +
+    colorArray[0] +
+    colorArray[1] +
+    colorArray[2] +
+    colorArray[3] +
+    colorArray[4] +
+    colorArray[5] +
+    colorArray[6] +
+    colorArray[7] +
+    colorArray[8]
+  );
 };
 
 exports.parseSolution = parseSolution;
 
 var getColors = function getColors(colorString) {
-  var colors = colorString.split('').map(function (c) {
-    if (c === 'b') {
-      return '#4badda';
+  var colors = colorString.split("").map(function (c) {
+    if (c === "b") {
+      return "#4badda";
     }
 
-    if (c === 'o') {
-      return '#ca766b';
+    if (c === "o") {
+      return "#ca766b";
     }
 
-    if (c === 'y') {
-      return '#ccc59b';
+    if (c === "y") {
+      return "#ccc59b";
     }
 
-    if (c === 'g') {
-      return '#76ba85';
+    if (c === "g") {
+      return "#76ba85";
     }
 
-    if (c === 'r') {
-      return '#b64855';
+    if (c === "r") {
+      return "#b64855";
     }
 
-    if (c === 'w') {
-      return '#e7ecef';
+    if (c === "w") {
+      return "#e7ecef";
     }
   });
   var parsedColors = {
@@ -479,7 +614,7 @@ var getColors = function getColors(colorString) {
     72: colors[50],
     232: colors[51],
     212: colors[52],
-    252: colors[53]
+    252: colors[53],
   };
   return parsedColors;
 };
